@@ -1,0 +1,104 @@
+.tv-fab {
+  display: grid;
+  grid-template-columns: 26% 1fr 27.6%;
+  align-items: stretch;
+  min-height: 100svh;
+  background: var(--color-black);
+}
+
+.tv-fab-media {
+  overflow: hidden;
+}
+
+.tv-fab-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tv-fab-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xl);
+  padding: var(--space-2xl) var(--space-md);
+  text-align: center;
+}
+
+.tv-fab-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.tv-fab-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.6vw + 0.5rem, 3rem);
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+  margin: 0;
+}
+
+.tv-fab-url {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--fs-label);
+  color: var(--color-white);
+  margin: var(--space-xs) 0 0;
+}
+
+.tv-fab-url-label {
+  font-weight: 700;
+}
+
+.tv-fab-url a {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.tv-fab-year {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.8vw + 0.5rem, 2.25rem);
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+  margin: var(--space-sm) 0 0;
+}
+
+@media (max-width: 900px) {
+  .tv-fab {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .tv-fab-media {
+    aspect-ratio: 1 / 1;
+  }
+
+  .tv-fab-info {
+    padding-block: var(--space-2xl);
+  }
+}
+
+/* PDF page 20 (pt / 14.4 = vw): headings 50.2pt (53.1pt for BE FABULLA, kept
+   at 50.2pt for both here), years 49pt, URL lines 18pt Montserrat Bold. */
+@media (min-width: 901px) {
+  .tv-fab-heading {
+    font-size: 3.486vw;
+  }
+
+  .tv-fab-year {
+    font-size: 3.403vw;
+  }
+
+  .tv-fab-url {
+    font-size: 1.25vw;
+  }
+}
+
+/* PDF: TT Ricordi Nobili tracks at about -0.12em (measured from the PDF glyph advances). */
+@media (min-width: 901px) {
+  .tv-fab-heading, .tv-fab-year {
+    letter-spacing: -0.12em;
+  }
+}

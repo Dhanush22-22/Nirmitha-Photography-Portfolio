@@ -1,0 +1,203 @@
+/*
+  Slide 3 is a flattened image in the PDF (no live text, and its fonts are not in
+  the supplied set), so it stays on the pre-font-pass display stack it was approved with.
+*/
+.what-i-do {
+  --font-display: "Archivo", "Segoe UI", Helvetica, Arial, sans-serif;
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(2.5rem, 3.75vw, 4.5rem) minmax(320px, 50%) 1fr;
+  min-height: 100svh;
+}
+
+.what-i-do-sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+.what-i-do-sidebar-top,
+.what-i-do-sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.what-i-do-sidebar-top {
+  flex: 0 0 55%;
+  background: var(--color-black);
+  padding-top: var(--space-lg);
+  gap: var(--space-md);
+}
+
+.what-i-do-sidebar-bottom {
+  flex: 1;
+  background: var(--color-offwhite);
+  justify-content: flex-end;
+  padding-bottom: var(--space-lg);
+}
+
+.what-i-do-sidebar-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-white);
+}
+
+.what-i-do-vertical {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--font-label);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: var(--fs-body);
+  color: var(--color-white);
+}
+
+.what-i-do-vertical-quote {
+  font-weight: 400;
+  font-size: var(--fs-micro);
+  letter-spacing: 0.12em;
+  color: var(--color-black);
+}
+
+.what-i-do-media {
+  overflow: hidden;
+}
+
+.what-i-do-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.what-i-do-panel {
+  background: var(--color-offwhite);
+  display: flex;
+  align-items: center;
+}
+
+.what-i-do-panel-inner {
+  padding: var(--space-xl) var(--gutter);
+  width: 100%;
+}
+
+/*
+  PPT measurement (1920x1080 export, Slide 3): the camera icon straddles the
+  image/panel boundary (~53.9% of slide width) — roughly a quarter of the
+  icon sits over the photograph, the rest over the panel — positioned below
+  the "WHAT I DO" heading and above the capability list. Positioned
+  absolute against the whole section (not the panel) so overflow:hidden on
+  .what-i-do-media (which only clips the <img>, not this sibling) can't clip
+  it, and so it can actually cross the column boundary instead of living
+  entirely inside the panel's own box.
+*/
+.what-i-do-icon {
+  position: absolute;
+  left: 51.3%;
+  top: 17.6%;
+  width: clamp(2.5rem, 6.5vw, 4.8rem);
+  height: clamp(2.1rem, 5.4vw, 4rem);
+  color: var(--color-olive);
+  z-index: 2;
+}
+
+/* Desktop-only asset; the boundary-straddling position is meaningless once
+   the layout stacks to one column, so mobile gets its own in-flow copy
+   (below, in the @media block) instead of trying to reuse this one. */
+.what-i-do-icon-mobile {
+  display: none;
+}
+
+.what-i-do-heading {
+  font-family: var(--font-display);
+  font-size: var(--fs-section-headline);
+  color: var(--color-black);
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-2xl);
+}
+
+.what-i-do-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.what-i-do-item {
+  display: flex;
+  gap: var(--space-sm);
+  padding-block: var(--space-xs);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.what-i-do-item:last-child {
+  border-bottom: none;
+}
+
+.what-i-do-index {
+  font-family: var(--font-label);
+  font-size: clamp(0.8rem, 0.22vw + 0.75rem, 0.95rem);
+  font-weight: 400;
+  color: var(--color-gold);
+  padding-top: 0.25em;
+  flex-shrink: 0;
+}
+
+.what-i-do-copy {
+  font-family: var(--font-body);
+  font-size: clamp(0.8rem, 0.22vw + 0.75rem, 0.95rem);
+  line-height: 1.5;
+}
+
+.what-i-do-title {
+  font-weight: 700;
+  color: var(--color-black);
+}
+
+.what-i-do-body {
+  font-weight: 300;
+  color: var(--color-olive);
+}
+
+@media (max-width: 900px) {
+  .what-i-do {
+    grid-template-columns: clamp(2rem, 6vw, 2.75rem) 1fr;
+    min-height: 0;
+  }
+
+  .what-i-do-media {
+    grid-column: 2 / 3;
+    grid-row: 1;
+    aspect-ratio: 16 / 10;
+  }
+
+  .what-i-do-sidebar {
+    grid-row: 1 / 3;
+  }
+
+  /*
+    The desktop icon straddles the image/panel column boundary via absolute
+    percentage coordinates — meaningless once the layout stacks to a single
+    column, and it was fighting the grid's row auto-placement here. Hide it
+    and show the plain in-flow copy above the heading instead.
+  */
+  .what-i-do-icon {
+    display: none;
+  }
+
+  .what-i-do-icon-mobile {
+    display: block;
+    width: 2.5rem;
+    height: 2.1rem;
+    color: var(--color-olive);
+    margin-bottom: var(--space-sm);
+  }
+
+  .what-i-do-panel {
+    grid-column: 2 / 3;
+  }
+
+  .what-i-do-panel-inner {
+    padding-block: var(--space-lg);
+  }
+}

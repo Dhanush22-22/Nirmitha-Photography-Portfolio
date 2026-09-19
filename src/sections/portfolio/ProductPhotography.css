@@ -1,0 +1,178 @@
+.product-photo {
+  display: grid;
+  grid-template-columns: 1fr minmax(320px, 43%);
+  min-height: 100svh;
+  background: var(--color-white);
+}
+
+.product-photo-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-2xl) var(--gutter);
+}
+
+.product-photo-heading {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero-headline);
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  color: var(--color-black);
+  margin: 0;
+}
+
+.product-photo-quote {
+  font-family: var(--font-quote);
+  font-size: var(--fs-body);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-olive);
+  margin: 0;
+}
+
+.product-photo-body {
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--color-olive);
+  text-align: justify;
+  margin: 0;
+  max-width: 42rem;
+}
+
+.product-photo-caption-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  max-width: 34rem;
+  margin-inline: auto;
+}
+
+.product-photo-caption {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-body);
+  text-align: center;
+  color: var(--color-black);
+  margin: 0;
+}
+
+/*
+  PPT measurement (1920x1080 export): the arrow's visual footprint is
+  ~105x90px (5.5% of slide width) — noticeably larger than the previous
+  2.5rem box here, which rendered at roughly 40x28px. Scaled up in place;
+  same SquiggleArrow asset, same viewBox aspect ratio (xMidYMid meet keeps
+  the stroke proportional, just bigger).
+*/
+.product-photo-arrow {
+  width: 6.5rem;
+  height: 6.5rem;
+  color: var(--color-black);
+  flex-shrink: 0;
+}
+
+.product-photo-media {
+  overflow: hidden;
+}
+
+.product-photo-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .product-photo {
+    grid-template-columns: 1fr;
+  }
+
+  .product-photo-media {
+    aspect-ratio: 3 / 4;
+    order: -1;
+  }
+
+  .product-photo-copy {
+    padding-block: var(--space-xl);
+  }
+
+  .product-photo-body {
+    text-align: left;
+  }
+
+  .product-photo-arrow {
+    display: none;
+  }
+}
+
+/* PDF page 14 (pt / 14.4 = vw): heading 107.9pt centred, quote 21pt Ovo
+   (untracked), body 24pt Playfair across the whole ~800pt column, caption
+   21.3pt Montserrat Regular. */
+@media (min-width: 901px) {
+  .product-photo-copy {
+    padding-inline: 0.8vw;
+  }
+
+  .product-photo-heading {
+    font-size: 7.49vw;
+    text-align: center;
+  }
+
+  .product-photo-quote {
+    font-size: 1.458vw;
+    letter-spacing: 0;
+    text-align: center;
+  }
+
+  .product-photo-body {
+    font-size: 1.667vw;
+    max-width: none;
+  }
+
+  .product-photo-caption {
+    font-size: 1.479vw;
+  }
+}
+
+/* PDF: TT Ricordi Nobili tracks at about -0.12em (measured from the PDF glyph advances) and stacks on a 1.0 line advance. */
+@media (min-width: 901px) {
+  .product-photo-heading {
+    letter-spacing: -0.12em;
+    line-height: 1;
+  }
+}
+
+/* PDF page 14: Ovo quote width implies about -0.02em tracking. */
+@media (min-width: 901px) {
+  .product-photo-quote {
+    letter-spacing: -0.02em;
+  }
+}
+
+/* PDF page 14: body advances 33.75pt on 24pt type, caption 31pt on 21.3pt. */
+@media (min-width: 901px) {
+  .product-photo-body {
+    line-height: 1.406;
+  }
+
+  .product-photo-caption {
+    line-height: 1.455;
+  }
+}
+
+/* PDF page 14: the 21.3pt caption runs ~674pt wide (4 lines) with the arrow beside it, so the row gets the room instead of the 34rem cap. */
+@media (min-width: 901px) {
+  .product-photo-caption-row {
+    max-width: none;
+    gap: 0.4rem;
+  }
+}
+
+/* Slide 14: the PDF stack (heading to caption) is ~690pt on a 810pt page with ~57pt above and below; the 96px padding pushed it past one screen. */
+@media (min-width: 901px) {
+  .product-photo-copy {
+    padding-block: 3vw;
+  }
+}

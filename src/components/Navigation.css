@@ -1,0 +1,107 @@
+.nav-bar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: var(--z-nav);
+  mix-blend-mode: difference;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: var(--space-md) var(--gutter);
+  pointer-events: none;
+}
+
+.nav-bar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  pointer-events: auto;
+}
+
+.nav-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 2.25rem;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-toggle-bar {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: var(--color-white);
+  transition: transform var(--duration-fast) var(--ease-editorial), opacity var(--duration-fast) var(--ease-editorial);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:first-child {
+  transform: translateY(3px) rotate(45deg);
+}
+
+.nav-toggle[aria-expanded="true"] .nav-toggle-bar:last-child {
+  transform: translateY(-3px) rotate(-45deg);
+}
+
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background: var(--color-black);
+  display: flex;
+  align-items: safe center;
+  justify-content: center;
+  overflow-y: auto;
+  padding-block: calc(var(--space-2xl) + var(--space-md));
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--duration-medium) var(--ease-editorial), visibility var(--duration-medium);
+}
+
+.nav-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav-overlay nav {
+  width: 100%;
+  max-width: 640px;
+  padding-inline: var(--gutter);
+}
+
+.nav-overlay ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-overlay a {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--color-white-25);
+  font-family: "Archivo", "Segoe UI", Helvetica, Arial, sans-serif;
+  font-size: clamp(1.25rem, 1.2vw + 1rem, 2.25rem);
+  color: var(--color-white-70);
+  transition: color var(--duration-fast) var(--ease-editorial), padding-left var(--duration-fast) var(--ease-editorial);
+}
+
+.nav-overlay a:hover,
+.nav-overlay a:focus-visible {
+  color: var(--color-white);
+  padding-left: var(--space-2xs);
+}
+
+.nav-overlay-index {
+  font-family: var(--font-label);
+  font-size: var(--fs-micro);
+  font-weight: 400;
+  color: var(--color-gold);
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 767px) {
+  .nav-overlay a {
+    font-size: 1.4rem;
+  }
+}

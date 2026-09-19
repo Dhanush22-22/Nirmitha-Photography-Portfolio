@@ -1,0 +1,59 @@
+.enter-work {
+  background: var(--color-black);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-3xl) var(--gutter);
+}
+
+.enter-work-script {
+  font-family: var(--font-script);
+  font-feature-settings: "liga" 0, "calt" 0;
+  font-size: clamp(2rem, 3vw + 1rem, 4.5rem);
+  color: var(--color-white);
+  margin: 0 0 var(--space-md);
+}
+
+.enter-work-heading {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw + 1rem, 9.5rem);
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+  margin: 0;
+}
+
+/* PDF page 4: script 63.8pt, "VIEW MY WORK" 117.8pt (pt / 14.4 = vw). */
+@media (min-width: 901px) {
+  .enter-work-script {
+    font-size: 4.43vw;
+  }
+
+  .enter-work-heading {
+    font-size: 8.18vw;
+  }
+}
+
+/* PDF page 4: the words are set with 3 / 4 / 7 space glyphs (0.174em each); extra over one normal space = 0.348 / 0.522 / 1.044em. */
+@media (min-width: 901px) {
+  .enter-work-word-2 {
+    margin-left: 0.348em;
+  }
+
+  .enter-work-word-3 {
+    margin-left: 0.522em;
+  }
+
+  .enter-work-word-4 {
+    margin-left: 1.044em;
+  }
+}
+
+/* PDF: TT Ricordi Nobili tracks at about -0.057em (measured from the PDF glyph advances). */
+@media (min-width: 901px) {
+  .enter-work-heading {
+    letter-spacing: -0.057em;
+  }
+}

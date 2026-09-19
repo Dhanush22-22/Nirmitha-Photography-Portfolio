@@ -1,0 +1,237 @@
+.spaces {
+  background: var(--color-white);
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding: var(--space-2xl) var(--gutter);
+}
+
+/*
+  Slide 15 is an asymmetric editorial collage, not three equal columns: each
+  photo has its own size/vertical offset, and each gold label sits in the
+  negative space to the upper-right of its own photo (not directly above it,
+  not on a shared baseline) — a staircase rhythm cascading down-right across
+  the slide. Every position below is the PPT's own pixel position (measured
+  off a 1920x1080 export of the actual slide) converted to a percentage of
+  this aspect-ratio-locked frame, not an eyeballed three-column guess.
+
+  max-width is intentionally modest (compare to Slide 8/16's ~1700px): the
+  PPT's own images only occupy ~29-32% of the FULL 1920-wide slide, and
+  letting this frame stretch nearly edge-to-edge in the browser was
+  rendering the photos much larger, in absolute pixels, than the compact
+  editorial scale the PPT actually shows.
+
+  container-type: inline-size + cqw-only font sizing (no rem-clamp mixing —
+  see the Slide 16 lesson) is what keeps the labels/title/quote scaling in
+  lockstep with the frame instead of the viewport: sizing text via vw meant
+  it stayed roughly the same size even as the frame above shrank, which is
+  exactly what was eating the PPT's already-tight gap between "Littele
+  Oddities" and Photo 3 and making it collide.
+*/
+.spaces-frame {
+  position: relative;
+  width: 100%;
+  max-width: 1150px;
+  aspect-ratio: 1920 / 1080;
+  margin-inline: auto;
+  container-type: inline-size;
+}
+
+.spaces-item {
+  position: absolute;
+  margin: 0;
+  overflow: hidden;
+}
+
+.spaces-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spaces-item-1 {
+  left: 1.41%;
+  top: 2.69%;
+  width: 28.85%;
+  height: 68.43%;
+}
+
+.spaces-item-2 {
+  left: 34.38%;
+  top: 15.74%;
+  width: 31.56%;
+  height: 68.43%;
+}
+
+.spaces-item-3 {
+  left: 68.02%;
+  top: 25%;
+  width: 28.85%;
+  height: 72.13%;
+}
+
+.spaces-tag {
+  position: absolute;
+  font-family: var(--font-tag);
+  font-size: 1.458cqw;
+  line-height: 1.048;
+  color: var(--color-gold);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.spaces-tag-1 {
+  left: 33.39%;
+  top: 4.7%;
+}
+
+.spaces-tag-2 {
+  left: 59.56%;
+  top: 10.51%;
+}
+
+/*
+  PDF page 15 puts this label at x 84.4% / y 23.47% (bbox top), but there the
+  photo below it starts lower than in the approved collage, leaving ~23pt of
+  clear space between the label glyphs and the photo. The approved photo
+  position stays untouched, so the label is lifted just enough to keep that
+  same clear gap (label ink ends ~23pt above the photo edge).
+*/
+.spaces-tag-3 {
+  left: 84.4%;
+  top: 19.6%;
+}
+
+.spaces-heading {
+  position: absolute;
+  left: 0.57%;
+  top: 74.4%;
+  width: 30.56%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 6.854cqw;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--color-black);
+  margin: 0;
+}
+
+.spaces-heading span {
+  white-space: nowrap;
+}
+
+.spaces-quote {
+  position: absolute;
+  left: 33.57%;
+  top: 90.1%;
+  width: 32.85%;
+  font-family: var(--font-quote);
+  font-size: 1.25cqw;
+  line-height: 1;
+  color: var(--color-olive);
+  text-align: center;
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .spaces {
+    min-height: 0;
+    padding-block: var(--space-xl);
+  }
+
+  .spaces-frame {
+    aspect-ratio: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md) var(--space-sm);
+  }
+
+  .spaces-item,
+  .spaces-tag,
+  .spaces-heading,
+  .spaces-quote {
+    position: static;
+    left: auto;
+    top: auto;
+    width: auto;
+  }
+
+  .spaces-item {
+    aspect-ratio: 555 / 740;
+  }
+
+  /*
+    cqw sizing (desktop) ties text to the frame's own inline size so it
+    scales in lockstep with the photos; on mobile the frame is only ~40% of
+    the viewport (two grid columns), so the same cqw values render
+    illegibly small. Fixed rem sizes here instead, matching the legible
+    scale used everywhere else on mobile.
+  */
+  .spaces-tag {
+    font-size: var(--fs-label);
+  }
+
+  .spaces-heading {
+    font-size: clamp(2rem, 8vw, 3rem);
+    align-items: flex-start;
+    text-align: left;
+    line-height: 0.92;
+  }
+
+  .spaces-quote {
+    font-size: var(--fs-body);
+  }
+
+  .spaces-item-1 {
+    grid-column: 1 / 2;
+    grid-row: 1;
+  }
+
+  .spaces-tag-1 {
+    grid-column: 1 / 2;
+    grid-row: 2;
+  }
+
+  .spaces-item-2 {
+    grid-column: 2 / 3;
+    grid-row: 1;
+  }
+
+  .spaces-tag-2 {
+    grid-column: 2 / 3;
+    grid-row: 2;
+  }
+
+  .spaces-item-3 {
+    grid-column: 1 / 2;
+    grid-row: 3;
+  }
+
+  .spaces-tag-3 {
+    grid-column: 1 / 2;
+    grid-row: 4;
+  }
+
+  .spaces-heading {
+    grid-column: 2 / 3;
+    grid-row: 3 / 5;
+    align-self: end;
+  }
+
+  .spaces-quote {
+    grid-column: 1 / 3;
+    grid-row: 5;
+    text-align: left;
+    margin-top: var(--space-sm);
+  }
+}
+
+/* PDF: TT Ricordi Nobili tracks at about -0.12em (measured from the PDF glyph advances). */
+@media (min-width: 768px) {
+  .spaces-heading {
+    letter-spacing: -0.12em;
+  }
+}

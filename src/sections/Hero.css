@@ -1,0 +1,264 @@
+/*
+  Slide 1 is off-limits to the local-font pass: the PDF's page 1 is a flattened
+  image (no live text to match) and the approved web version was built on the
+  pre-integration display stack (TT Ricordi Nobili was not loaded then, so it
+  resolved to the fallback). Pinning that exact stack here keeps Slide 1
+  pixel-identical to its approved state.
+*/
+.hero {
+  --font-display: "Archivo", "Segoe UI", Helvetica, Arial, sans-serif;
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--color-black);
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 32% center;
+  will-change: transform;
+}
+
+/*
+  Slide 1 is a flattened Canva export — its own title/body text is baked into the
+  pixels, and pixel-sampling confirms the photo's own exposure is already near-black
+  behind that text (~RGB 2-12) — that darkness is the source photograph, not an
+  effect. The scrim below just replicates that same ambient darkness cleanly (so our
+  new HTML text reads without the old baked glyphs showing through) and, critically,
+  fades to fully transparent by 80% so the window and photographer are exactly as
+  bright and clear as the source photo — no added darkening beyond the PPT.
+*/
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(0, 0, 0, 0.98) 0%,
+    rgba(0, 0, 0, 0.98) 50%,
+    rgba(0, 0, 0, 0.25) 68%,
+    rgba(0, 0, 0, 0) 80%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+/* Slide 1's own camera-settings chips sit bottom-right of the same dark zone as the
+   diagonal scrim above tapers off — this short strip mutes just that row so the
+   baked "ISO 100 / F 2.8 / ..." text doesn't ghost behind our HTML chips. */
+.hero-vignette-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 70px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.hero-hud {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  font-family: var(--font-label);
+  font-size: var(--fs-micro);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-white-70);
+  pointer-events: none;
+}
+
+.hero-hud-rule {
+  position: absolute;
+  top: 2.75rem;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-white-25);
+}
+
+.hero-hud-corner {
+  position: absolute;
+  top: -8px;
+  left: var(--gutter);
+  width: 1.9rem;
+  height: 1.5rem;
+  border: 1px solid var(--color-white-25);
+}
+
+.hero-hud-corner-bl {
+  position: absolute;
+  bottom: var(--space-md);
+  left: var(--gutter);
+  width: 1.5rem;
+  height: 1.5rem;
+  border-left: 1px solid var(--color-white-25);
+  border-bottom: 1px solid var(--color-white-25);
+}
+
+.hero-hud-top {
+  position: absolute;
+  top: calc(2.75rem + var(--space-sm));
+  left: var(--gutter);
+  right: var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.hero-hud-focus {
+  margin-left: auto;
+}
+
+.hero-hud-rec {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  color: var(--color-white-85);
+}
+
+.hero-hud-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #b23b3b;
+}
+
+.hero-hud-bottom {
+  position: absolute;
+  bottom: var(--space-md);
+  right: var(--gutter);
+  display: flex;
+  gap: var(--space-2xs);
+}
+
+.hero-hud-chip {
+  border: 1px solid var(--color-white-25);
+  padding: 0.3em 0.6em;
+  border-radius: 3px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding-top: var(--space-2xl);
+  padding-bottom: var(--space-lg);
+  max-width: 52rem;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-label);
+  font-size: var(--fs-label);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  color: var(--color-gold);
+  margin: 0 0 var(--space-md);
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero-headline);
+  color: var(--color-white);
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.hero-role {
+  margin: var(--space-2xs) 0 0;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-subheadline);
+  color: var(--color-white-70);
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+}
+
+.hero-divider {
+  display: block;
+  width: 5rem;
+  height: 1px;
+  background: var(--color-white-50);
+  margin: var(--space-lg) 0 var(--space-md);
+}
+
+.hero-quote {
+  font-family: var(--font-label);
+  font-size: var(--fs-body-lg);
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-white);
+  padding-left: var(--space-md);
+  border-left: 1px solid var(--color-white-50);
+  margin-bottom: var(--space-md);
+}
+
+.hero-body {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: var(--fs-body-lg);
+  color: var(--color-white-70);
+  max-width: 34rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .hero-media img {
+    object-position: 68% 30%;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero {
+    align-items: flex-end;
+  }
+
+  .hero-media img {
+    object-position: 82% 35%;
+  }
+
+  .hero-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.3) 0%,
+      rgba(0, 0, 0, 0.45) 38%,
+      rgba(0, 0, 0, 0.72) 58%,
+      rgba(0, 0, 0, 0.78) 100%
+    );
+  }
+
+  .hero-hud-focus {
+    display: none;
+  }
+
+  .hero-hud-bottom {
+    left: var(--gutter);
+    right: var(--gutter);
+    flex-wrap: wrap;
+  }
+
+  .hero-content {
+    padding-top: calc(var(--space-3xl) + var(--space-lg));
+    padding-bottom: var(--space-xl);
+    max-width: none;
+  }
+
+  .hero {
+    align-items: flex-end;
+  }
+
+  .hero-divider {
+    margin: var(--space-md) 0 var(--space-sm);
+  }
+}

@@ -1,0 +1,233 @@
+.experience {
+  background: var(--color-white);
+  min-height: 100svh;
+  padding: var(--space-3xl) var(--gutter) var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.experience-heading {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero-headline);
+  letter-spacing: -0.02em;
+  color: var(--color-black);
+  text-align: center;
+  margin: 0 0 var(--space-2xl);
+}
+
+/*
+  The timeline bar shares the exact same grid-template-columns + gap as
+  .experience-columns below, so a dot with grid-column:N + justify-self:start
+  lands precisely above column N's left edge — no separate math to keep in
+  sync. The connecting line and arrowhead are absolutely positioned within
+  this same relative container, behind the dots.
+*/
+.experience-timeline {
+  position: relative;
+  height: 12px;
+  margin-bottom: var(--space-md);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.experience-line {
+  position: absolute;
+  left: 0;
+  right: 14px;
+  top: 50%;
+  height: 1px;
+  background: var(--color-black);
+  transform: translateY(-50%);
+  transform-origin: left;
+}
+
+.experience-arrow {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: translateY(-50%);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid var(--color-black);
+}
+
+.experience-dot {
+  position: relative;
+  z-index: 1;
+  justify-self: start;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-black);
+}
+
+.experience-columns {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+}
+
+.experience-column {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.experience-year {
+  font-family: var(--font-body);
+  font-weight: 900;
+  font-size: var(--fs-body-lg);
+  color: var(--color-black);
+  margin: 0 0 var(--space-xs);
+}
+
+.experience-company {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(1.1rem, 1.4vw + 0.6rem, 1.6rem);
+  letter-spacing: 0.02em;
+  color: var(--color-black);
+  margin: 0;
+}
+
+.experience-role {
+  font-family: var(--font-label);
+  font-weight: 600;
+  font-size: var(--fs-label);
+  color: var(--color-black);
+  margin: 0 0 var(--space-sm);
+}
+
+.experience-body {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: var(--fs-micro);
+  line-height: 1.6;
+  color: var(--color-black);
+  margin: 0 0 var(--space-sm);
+}
+
+.experience-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+}
+
+.experience-bullets li {
+  position: relative;
+  padding-left: 1em;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-micro);
+  letter-spacing: 0.02em;
+  color: var(--color-black);
+}
+
+.experience-bullets li::before {
+  content: "\2022";
+  font-weight: 700;
+  position: absolute;
+  left: 0;
+}
+
+@media (max-width: 900px) {
+  .experience {
+    padding-block: var(--space-2xl) var(--space-xl);
+  }
+
+  .experience-timeline,
+  .experience-line,
+  .experience-arrow,
+  .experience-dot {
+    display: none;
+  }
+
+  .experience-columns {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+}
+
+/* PDF page 18 (pt / 14.4 = vw): heading 117.8pt; year 20pt; company 20pt
+   Montserrat SemiBold; role 16pt Raleway SemiBold; body 15.3pt Light (advance
+   21pt); bullets 16pt Regular. The PDF's three description boxes are ~223 /
+   360 / 372pt wide, which is what drives its line breaks. */
+@media (min-width: 901px) {
+  .experience-heading {
+    font-size: 8.18vw;
+  }
+
+  .experience-year {
+    font-size: 1.389vw;
+  }
+
+  .experience-company {
+    font-size: 1.389vw;
+  }
+
+  .experience-role {
+    font-size: 1.111vw;
+  }
+
+  .experience-body {
+    font-size: 1.0625vw;
+    line-height: 1.373;
+  }
+
+  .experience-body {
+    white-space: pre-line;
+  }
+
+  .experience-column:nth-child(1) .experience-body {
+    max-width: 16.6vw;
+  }
+
+  .experience-column:nth-child(2) .experience-body {
+    max-width: 26.5vw;
+  }
+
+  .experience-column:nth-child(3) .experience-body {
+    max-width: 27vw;
+  }
+
+  .experience-role {
+    line-height: 1.22;
+  }
+
+  .experience-column:nth-child(1) .experience-role,
+  .experience-column:nth-child(3) .experience-role {
+    max-width: 13vw;
+  }
+
+  .experience-bullets {
+    gap: 0;
+  }
+
+  .experience-bullets li {
+    font-size: 1.111vw;
+    line-height: 1.22;
+  }
+}
+
+/* PDF: TT Ricordi Nobili tracks at about -0.12em (measured from the PDF glyph advances). */
+@media (min-width: 901px) {
+  .experience-heading {
+    letter-spacing: -0.12em;
+  }
+}
+
+/* Slide 18 (PDF): heading-to-timeline gap ~54pt, ~95pt above the heading and ~36pt below the last bullet. */
+@media (min-width: 901px) {
+  .experience {
+    padding-block: 5.8vw 2.2vw;
+  }
+
+  .experience-heading {
+    margin-bottom: 3.4vw;
+  }
+}

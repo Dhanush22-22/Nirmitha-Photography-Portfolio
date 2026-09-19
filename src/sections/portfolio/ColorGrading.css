@@ -1,0 +1,155 @@
+.color-grade {
+  display: grid;
+  grid-template-columns: minmax(180px, 28%) 1fr;
+  align-items: center;
+  min-height: 100svh;
+  background: var(--color-black);
+  /* Generous top/bottom breathing room — each panel is its own "page", not a
+     continuation of the last, even though every Color Grading slide shares
+     the same black background. */
+  padding-block: var(--space-3xl);
+}
+
+.color-grade-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  height: 100%;
+}
+
+.color-grade-label-main,
+.color-grade-label-sub {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: var(--color-white);
+}
+
+.color-grade-label-main {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw + 1rem, 5.5rem);
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+}
+
+.color-grade-label-sub {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(1rem, 1.6vw + 0.5rem, 1.75rem);
+  letter-spacing: 0.02em;
+  color: var(--color-white);
+}
+
+.color-grade-pair {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(1rem, 3vw, 3rem);
+  padding-inline: var(--gutter);
+}
+
+.color-grade-item {
+  margin: 0;
+  flex: 0 1 26rem;
+  aspect-ratio: 555 / 740;
+  max-height: 78svh;
+}
+
+.color-grade-caption {
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 1.6vw + 0.6rem, 2rem);
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+  margin-bottom: var(--space-sm);
+}
+
+.color-grade-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 900px) {
+  .color-grade {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: var(--space-lg);
+  }
+
+  .color-grade-label {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding-inline: var(--gutter);
+  }
+
+  .color-grade-label-main,
+  .color-grade-label-sub {
+    writing-mode: horizontal-tb;
+    transform: none;
+  }
+
+  .color-grade-label-main {
+    font-size: clamp(2rem, 8vw, 3rem);
+  }
+
+  .color-grade-pair {
+    gap: var(--space-sm);
+    padding-inline: var(--gutter);
+  }
+
+  .color-grade-item {
+    flex: 1 1 0;
+    max-height: none;
+  }
+}
+
+/* PDF pages 11-13: "COLOR GRADING" 117.8pt, location label 42pt Montserrat,
+   BEFORE/AFTER 42pt (28pt on page 13) � pt / 14.4 = vw. */
+@media (min-width: 901px) {
+  .color-grade-label-main {
+    font-size: 8.18vw;
+  }
+
+  .color-grade-label-sub {
+    font-size: 2.917vw;
+  }
+
+  .color-grade-caption {
+    font-size: 2.917vw;
+  }
+
+  .color-grade[data-grade="arrival-ambience"] .color-grade-caption {
+    font-size: 1.944vw;
+  }
+}
+
+/* PDF: TT Ricordi Nobili tracks at about -0.12em (measured from the PDF glyph advances). */
+@media (min-width: 901px) {
+  .color-grade-label-main, .color-grade-caption {
+    letter-spacing: -0.12em;
+  }
+}
+
+/* PDF pages 11-13: COLOR and GRADING are two centred vertical lines (117.8pt pitch) and the location label is centred on the same line, the whole group sitting 17.5pt above the slide centre. Only relative offsets are used, so the flex layout, images and animations are untouched. */
+@media (min-width: 901px) {
+  .color-grade-label-main {
+    text-align: center;
+    line-height: 1;
+    position: relative;
+    left: 4.75vw;
+    top: -1.215vw;
+  }
+
+  .color-grade-label-sub {
+    position: relative;
+    left: 2.59vw;
+    top: -1.215vw;
+    letter-spacing: -0.12em;
+  }
+
+  .color-grade[data-grade="arrival-ambience"] .color-grade-label-sub {
+    letter-spacing: -0.103em;
+  }
+}

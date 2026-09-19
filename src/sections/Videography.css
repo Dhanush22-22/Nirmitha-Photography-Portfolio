@@ -1,0 +1,140 @@
+.videography {
+  display: grid;
+  grid-template-columns: minmax(280px, 34.1%) 1fr;
+  align-items: center;
+  min-height: 100svh;
+  background: var(--color-black);
+}
+
+/*
+  PPT measurement (1920x1080 export): the video block is 580x1025px, a
+  near-full-height but NOT edge-to-edge portrait crop, inset from the slide's
+  left edge by 72px (== --gutter's clamped max). Previously this had no
+  aspect-ratio lock, so it stretched to 100% of the section's height at
+  whatever the column's width happened to be, distorting the portrait
+  proportions at narrower viewports. Locking the ratio + capping height
+  mirrors the same fix already used for ThroughOurLens's video (Slide 22).
+*/
+.videography-media {
+  aspect-ratio: 580 / 1025;
+  max-height: 92svh;
+  margin-left: var(--gutter);
+  overflow: hidden;
+}
+
+.videography-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  padding: var(--space-2xl) var(--gutter);
+  text-align: center;
+}
+
+.videography-heading {
+  font-family: var(--font-display);
+  font-size: var(--fs-hero-headline);
+  letter-spacing: -0.01em;
+  color: var(--color-white);
+  margin: 0;
+}
+
+.videography-paragraph {
+  max-width: 42rem;
+  margin: 0;
+  line-height: 1.7;
+}
+
+.videography-paragraph-1 {
+  font-family: var(--font-classic);
+  font-size: var(--fs-body-lg);
+  color: var(--color-white);
+}
+
+.videography-paragraph-2 {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-body);
+  color: var(--color-white);
+}
+
+/*
+  Traces the PPT: the loop-into-arrow originates right at the end of the
+  second paragraph and curves down-left, head pointing back at the video.
+  Flowed in-line right after paragraph-2 (not absolutely positioned against
+  the column) so it stays anchored to the paragraph's end at any section
+  height, then pulled to the column's left edge (toward the video) and
+  pulled up into the paragraph's gap so it reads as continuing off the text
+  rather than floating in the empty space below it. Reusing the Slide 14
+  SquiggleArrow asset mirrored horizontally (scaleX(-1)) rather than drawing
+  a new one.
+*/
+.videography-arrow {
+  align-self: flex-start;
+  width: 5rem;
+  height: 5rem;
+  margin-top: -1.25rem;
+  margin-left: -0.5rem;
+  color: var(--color-white-50);
+  transform: scaleX(-1);
+}
+
+@media (max-width: 900px) {
+  .videography {
+    grid-template-columns: 1fr;
+  }
+
+  .videography-media {
+    aspect-ratio: 3 / 4;
+  }
+
+  .videography-copy {
+    padding-block: var(--space-xl);
+  }
+
+  .videography-arrow {
+    display: none;
+  }
+}
+
+/* PDF page 17 (pt / 14.4 = vw): heading 80pt, Libre Baskerville 28pt
+   (advance 41.3pt) and Montserrat 24.8pt (advance 36.7pt) over ~820pt. */
+@media (min-width: 901px) {
+  .videography-heading {
+    font-size: 5.556vw;
+  }
+
+  .videography-paragraph {
+    max-width: 57vw;
+  }
+
+  .videography-paragraph-1 {
+    font-size: 1.944vw;
+    line-height: 1.473;
+  }
+
+  .videography-paragraph-2 {
+    font-size: 1.722vw;
+    line-height: 1.48;
+  }
+}
+
+/* PDF: TT Ricordi Nobili tracks at about -0.12em (measured from the PDF glyph advances). */
+@media (min-width: 901px) {
+  .videography-heading {
+    letter-spacing: -0.12em;
+  }
+}
+
+/* Slide 17: the (approved) arrow sits in the copy flow after paragraph 2 and was adding its own 80px to the column height. Zero-height in flow, same visual position. */
+@media (min-width: 901px) {
+  .videography-arrow {
+    margin-bottom: -60px;
+  }
+}
+@media (min-width: 901px) {
+  .videography-copy {
+    padding-block: 5.6vw;
+  }
+}

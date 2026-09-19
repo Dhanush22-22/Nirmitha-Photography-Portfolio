@@ -1,0 +1,173 @@
+/*
+  PPT measurement (1920x1080 export, Slide 24): the photo is full height,
+  flush to the column's right edge, at its own native aspect ratio
+  (790x1087, uncropped) — the only gap is a narrow black strip on the LEFT
+  (~49px of 1920 = 2.55%), never at the top or bottom.
+
+  object-fit: contain looked right at exactly 1920x1080, but "contain" picks
+  whichever axis needs to shrink — at column/viewport ratios where the
+  column is proportionally narrower than the photo (e.g. 1440x900), it fits
+  by WIDTH instead and letterboxes top+bottom, leaving black space under the
+  photo that the PPT never has. The photo must always fill full height
+  (touching top and bottom, like the PPT) with any slack absorbed only on
+  the left — so the img is absolutely positioned (height:100%, width:auto,
+  pinned top/right) instead of using object-fit at all: this always touches
+  top+right, and overflow:hidden on the container clips the left edge
+  instead of ever letterboxing or stretching.
+
+  The media column stays locked to exactly one viewport height
+  (align-self: start + height: 100svh) rather than grid's default
+  row-stretch, so it can't be pulled taller by the copy column's own content.
+*/
+/*
+  overflow: hidden here is load-bearing: .closing-media carries a
+  scroll-reveal (scale: 1.05 -> 1) and, being the very last element in the
+  document, its transform can end up extending a little past its own box.
+  Without containment that bled into document.documentElement.scrollHeight,
+  leaving extra empty scroll space below the actual composition even though
+  every element's own layout box already terminates at the right place.
+*/
+.closing {
+  display: grid;
+  grid-template-columns: minmax(320px, 43.65%) 1fr;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--color-black);
+}
+
+.closing-media {
+  position: relative;
+  align-self: start;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.closing-media img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: auto;
+  max-width: none;
+}
+
+.closing-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xl);
+  padding: var(--space-2xl) var(--gutter);
+}
+
+.closing-heading {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  margin-left: clamp(0rem, 15vw, 19rem);
+  font-family: var(--font-display);
+  font-size: var(--fs-hero-headline);
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  color: var(--color-white);
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.closing-contacts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  align-self: flex-start;
+  margin-left: clamp(0rem, 15vw, 19rem);
+  list-style: none;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.closing-contact {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.closing-contact-icon {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-white);
+}
+
+.closing-contact-label {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: var(--fs-body-lg);
+  color: var(--color-white);
+  margin: 0 0 var(--space-2xs);
+}
+
+.closing-contact-value {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-body-lg);
+  color: var(--color-white);
+}
+
+.closing-contact-value[href^="mailto:"] {
+  font-family: var(--font-label);
+}
+
+@media (max-width: 900px) {
+  .closing {
+    grid-template-columns: 1fr;
+  }
+
+  .closing-media {
+    align-self: stretch;
+    height: auto;
+    aspect-ratio: 3 / 4;
+  }
+
+  .closing-media img {
+    position: static;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .closing-copy {
+    align-items: flex-start;
+    padding-block: var(--space-xl);
+  }
+
+  .closing-heading,
+  .closing-contacts {
+    margin-left: 0;
+  }
+}
+
+/* PDF page 24 (pt / 14.4 = vw): heading 68.6pt, Phone/Mail 25.7pt Raleway
+   Bold, values 24.7pt Regular (phone Montserrat, email Raleway). */
+@media (min-width: 901px) {
+  .closing-heading {
+    font-size: 4.764vw;
+  }
+
+  .closing-contact-label {
+    font-size: 1.785vw;
+  }
+
+  .closing-contact-value {
+    font-size: 1.715vw;
+  }
+}
+
+/* PDF: TT Ricordi Nobili tracks at about -0.12em (measured from the PDF glyph advances) and stacks on a 1.0 line advance. */
+@media (min-width: 901px) {
+  .closing-heading {
+    letter-spacing: -0.12em;
+    line-height: 1;
+  }
+}

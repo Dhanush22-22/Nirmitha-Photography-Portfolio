@@ -1,0 +1,124 @@
+.video-player {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-black);
+}
+
+.video-player-el {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--color-black);
+}
+
+.video-player-cover {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.15);
+  transition: background var(--duration-fast) var(--ease-editorial);
+}
+
+.video-player-cover:hover,
+.video-player-cover:focus-visible {
+  background: rgba(0, 0, 0, 0.32);
+}
+
+.video-player-cover-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  color: var(--color-white);
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
+}
+
+.video-player-controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-sm) var(--space-xs);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.video-player-btn {
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  padding: 0.25rem;
+  color: var(--color-white);
+}
+
+.video-player-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.video-player-time {
+  flex-shrink: 0;
+  font-family: var(--font-label);
+  font-size: var(--fs-micro);
+  font-weight: 400;
+  color: var(--color-white-70);
+  font-variant-numeric: tabular-nums;
+}
+
+.video-player-progress {
+  flex: 1;
+  appearance: none;
+  -webkit-appearance: none;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    to right,
+    var(--color-white) var(--progress, 0%),
+    var(--color-white-25) var(--progress, 0%)
+  );
+  cursor: pointer;
+}
+
+.video-player-progress::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-white);
+  margin-top: 0;
+  transition: transform var(--duration-fast) var(--ease-editorial);
+}
+
+.video-player-progress:hover::-webkit-slider-thumb {
+  transform: scale(1.2);
+}
+
+.video-player-progress::-moz-range-track {
+  height: 2px;
+  background: var(--color-white-25);
+  border-radius: 2px;
+}
+
+.video-player-progress::-moz-range-progress {
+  height: 2px;
+  background: var(--color-white);
+  border-radius: 2px;
+}
+
+.video-player-progress::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-white);
+}
+
+@media (max-width: 600px) {
+  .video-player-time {
+    display: none;
+  }
+}

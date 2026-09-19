@@ -1,0 +1,194 @@
+.food-bev {
+  position: relative;
+  background: var(--color-white);
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: var(--space-2xl);
+}
+
+/*
+  Slide 16 is a fixed 1920x1080 editorial composition — the paragraph, title,
+  two photographs and the "Culinary" tag all interlock at specific positions
+  (the title's widest line deliberately overlaps the right photo's left edge).
+  Every percentage below is that PPT slide's own pixel position, measured off
+  a rendered export (pixel-grid overlay), not an estimate. Locking this wrapper
+  to the slide's own aspect ratio is what keeps that relationship intact
+  instead of stretching to fill 100svh.
+*/
+.food-bev-frame {
+  position: relative;
+  width: 100%;
+  max-width: 1700px;
+  aspect-ratio: 1920 / 1080;
+  container-type: inline-size;
+}
+
+.food-bev-body {
+  position: absolute;
+  left: 1.8%;
+  top: 7.2%;
+  width: 55%;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(0.75rem, 0.9vw + 0.4rem, 1.05rem);
+  line-height: 1.55;
+  text-align: center;
+  color: var(--color-olive);
+  margin: 0;
+}
+
+.food-bev-soup {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 31.2%;
+  width: 27.9%;
+  height: 66.1%;
+  margin: 0;
+}
+
+.food-bev-soup img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/*
+  The PPT's widest line, "PHOTOGRAPHY", deliberately reaches to the very edge
+  of both photographs (measured off the render: text spans x485-1270 of 1920,
+  the left photo ends at x536, the right photo begins at x1183 — the title
+  just kisses each edge rather than covering meaningful photo area). The box
+  is sized to that widest-line extent so "FOOD &" / "BEVERAGE" center the same
+  way the PPT does, and it paints above both photos (z-index) so it stays
+  legible where it meets them.
+
+  font-size is set in cqw ONLY — no rem min/max clamp. A clamp's rem bounds
+  are absolute (tied to the root font size, not this container), so at some
+  container widths the font would hit that floor/ceiling and stop scaling
+  with the box, breaking the text-to-box ratio and letting it spill further
+  into the photos than intended (this is what changed between browser zoom
+  levels — zoom changes how many CSS px the frame renders at). Pure cqw keeps
+  the title's size, and therefore how far it reaches, exactly proportional to
+  this frame at any zoom level or viewport width.
+*/
+.food-bev-heading {
+  position: absolute;
+  z-index: 2;
+  left: 25.3%;
+  top: 44.4%;
+  width: 40.9%;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-size: 5.6cqw;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  color: var(--color-black);
+  text-align: center;
+  margin: 0;
+}
+
+.food-bev-drink {
+  position: absolute;
+  z-index: 1;
+  left: 61.6%;
+  top: 2.5%;
+  width: 38.4%;
+  height: 86%;
+  margin: 0;
+}
+
+.food-bev-drink img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.food-bev-tag {
+  position: absolute;
+  left: 84.3%;
+  top: 92.6%;
+  font-family: var(--font-tag);
+  font-size: clamp(0.9rem, 1.1vw + 0.4rem, 1.5rem);
+  color: var(--color-gold);
+}
+
+@media (max-width: 900px) {
+  .food-bev {
+    min-height: 0;
+    padding: var(--space-2xl) var(--gutter) var(--space-xl);
+  }
+
+  .food-bev-frame {
+    aspect-ratio: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+
+  .food-bev-body {
+    position: static;
+    width: auto;
+    grid-column: 1 / 3;
+    margin-bottom: var(--space-lg);
+    font-size: var(--fs-body);
+  }
+
+  .food-bev-soup,
+  .food-bev-drink {
+    position: static;
+    width: auto;
+    height: auto;
+    aspect-ratio: 3 / 4;
+  }
+
+  .food-bev-heading {
+    position: static;
+    width: auto;
+    grid-column: 1 / 3;
+    font-size: clamp(2rem, 8vw, 3rem);
+    padding-block: var(--space-lg);
+  }
+
+  .food-bev-tag {
+    position: static;
+    grid-column: 2 / 3;
+    justify-self: end;
+    margin-top: var(--space-sm);
+  }
+}
+
+/* PDF page 16 (pt / 14.4 = cqw of the 1920:1080 frame). PDF heading is
+   95.6pt on a 1.0 line advance with "PHOTOGRAPHY" spanning x 23.6%-68.1%; body
+   20.5pt Regular #5a5241 on a 1.45 advance; "Culinary" 37.4pt New Icon Serif. */
+@media (min-width: 901px) {
+  .food-bev-body {
+    top: 6.7%;
+    font-size: 1.424cqw;
+    line-height: 1.45;
+  }
+
+  .food-bev-heading {
+    left: 23.6%;
+    top: 45.06%;
+    width: 44.5%;
+    font-size: 6.639cqw;
+    line-height: 1;
+  }
+
+  .food-bev-tag {
+    left: 85%;
+    top: 92%;
+    font-size: 2.597cqw;
+    line-height: 1.05;
+  }
+}
+
+/* PDF: TT Ricordi Nobili tracks at about -0.12em (measured from the PDF glyph advances). */
+@media (min-width: 901px) {
+  .food-bev-heading {
+    letter-spacing: -0.12em;
+  }
+}

@@ -1,0 +1,122 @@
+.quiet-elegance {
+  display: grid;
+  grid-template-columns: 39% 30% 31%;
+  align-items: center;
+  min-height: 100svh;
+  background: var(--color-black);
+}
+
+.quiet-elegance-media {
+  overflow: hidden;
+}
+
+.quiet-elegance-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.quiet-elegance-media-left {
+  align-self: stretch;
+}
+
+.quiet-elegance-media-right {
+  align-self: center;
+  height: 78svh;
+}
+
+.quiet-elegance-copy {
+  text-align: center;
+  padding: var(--space-lg);
+}
+
+.quiet-elegance-script {
+  font-family: var(--font-script);
+  font-feature-settings: "liga" 0, "calt" 0;
+  font-size: clamp(1.75rem, 2.4vw + 1rem, 3.25rem);
+  color: var(--color-white);
+  margin: 0;
+}
+
+.quiet-elegance-heading {
+  font-family: var(--font-display);
+  font-size: var(--fs-section-headline);
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+  margin: 0 0 var(--space-md);
+}
+
+.quiet-elegance-body {
+  font-family: var(--font-serif-alt);
+  font-weight: 300;
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: var(--color-white);
+  margin: 0 auto;
+  max-width: 24rem;
+}
+
+@media (max-width: 900px) {
+  .quiet-elegance {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .quiet-elegance-media-left,
+  .quiet-elegance-media-right {
+    aspect-ratio: 3 / 4;
+    height: auto;
+  }
+
+  .quiet-elegance-copy {
+    padding-block: var(--space-xl);
+  }
+}
+
+/* PDF page 10 (pt / 14.4 = vw): script 83.3pt, "ELEGANCE" 68.6pt, Ibarra 20pt
+   (advance 29.3pt) in a ~258pt measure. */
+@media (min-width: 901px) {
+  .quiet-elegance-script {
+    font-size: 5.785vw;
+  }
+
+  .quiet-elegance-heading {
+    font-size: 4.764vw;
+  }
+
+  .quiet-elegance-body {
+    font-size: 1.389vw;
+    line-height: 1.463;
+    max-width: 18vw;
+  }
+}
+
+/* PDF: TT Ricordi Nobili tracks at about -0.12em (measured from the PDF glyph advances). */
+@media (min-width: 901px) {
+  .quiet-elegance-heading {
+    letter-spacing: -0.12em;
+  }
+}
+
+/* PDF page 10: "Quiet" origin at x 599.7pt, baseline 174.1pt (was 689.7 / 276.6); moved left 90px = 6.25vw and up 102.5px = 7.12vw. */
+@media (min-width: 901px) {
+  .quiet-elegance-script {
+    position: relative;
+    left: -6.25vw;
+    top: -7.12vw;
+  }
+}
+/* PDF page 10: ELEGANCE origin (648.4, 281.1) and paragraph first line baseline 351.5 / left 676.7 (site was 623.5, 376.5 and 431.7 / 679.8), so the whole Quiet + ELEGANCE + paragraph group sits at the PDF coordinates. */
+@media (min-width: 901px) {
+  .quiet-elegance-heading {
+    position: relative;
+    left: 1.73vw;
+    top: -6.62vw;
+  }
+
+  .quiet-elegance-body {
+    position: relative;
+    left: -0.24vw;
+    top: -5.57vw;
+  }
+}

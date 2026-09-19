@@ -1,0 +1,128 @@
+.planning {
+  display: grid;
+  grid-template-columns: minmax(280px, 37.6%) 1fr;
+  min-height: 100svh;
+  background: var(--color-black);
+  /*
+    Slide 21's left photo is full-bleed (matches the PPT), so it can't take
+    internal padding without insetting the image away from the PPT's true
+    edge-to-edge crop. A black margin above the whole section — same color as
+    the page background either side of it — gives Slide 20 -> 21 a genuine
+    paused beat instead of two full-bleed images touching directly.
+  */
+  margin-top: var(--space-2xl);
+}
+
+.planning-media {
+  overflow: hidden;
+}
+
+.planning-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.planning-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xl);
+  padding: var(--space-2xl) var(--gutter);
+}
+
+.planning-heading {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  font-family: var(--font-display);
+  font-size: var(--fs-hero-headline);
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  color: var(--color-white);
+  margin: 0;
+  margin-left: clamp(0rem, 8vw, 6rem);
+}
+
+.planning-body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-body-lg);
+  line-height: 1.7;
+  color: var(--color-white);
+  text-align: center;
+  max-width: 40rem;
+  margin: 0;
+}
+
+.planning-quote {
+  font-family: var(--font-quote);
+  font-size: clamp(1.15rem, 1.6vw + 0.6rem, 2rem);
+  color: var(--color-white);
+  text-align: center;
+  max-width: 34rem;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .planning {
+    grid-template-columns: 1fr;
+  }
+
+  .planning-media {
+    aspect-ratio: 3 / 4;
+  }
+
+  .planning-heading {
+    margin-left: 0;
+  }
+
+  .planning-copy {
+    padding-block: var(--space-xl);
+  }
+}
+
+/* PDF page 21 (pt / 14.4 = vw): heading 72pt, Montserrat Regular 28.4pt
+   (advance 41.2pt) over ~760pt, quote Ovo 36pt. */
+@media (min-width: 901px) {
+  .planning-heading {
+    font-size: 5vw;
+  }
+
+  .planning-body {
+    font-size: 1.972vw;
+    line-height: 1.45;
+    max-width: 52.8vw;
+  }
+
+  .planning-quote {
+    font-size: 2.5vw;
+  }
+}
+
+/* PDF: TT Ricordi Nobili tracks at about -0.12em (measured from the PDF glyph advances) and stacks on a 1.0 line advance. */
+@media (min-width: 901px) {
+  .planning-heading {
+    letter-spacing: -0.12em;
+    line-height: 1;
+  }
+}
+
+/* PDF page 21: the 36pt Ovo quote breaks onto two lines across ~562pt. */
+@media (min-width: 901px) {
+  .planning-quote {
+    max-width: 40vw;
+  }
+}
+
+/* Slide 21 (PDF): quote lines advance 36pt on 36pt type (line-height 1) and the stack has ~54pt above / ~85pt below on the 810pt page. */
+@media (min-width: 901px) {
+  .planning-quote {
+    line-height: 1;
+  }
+
+  .planning-copy {
+    padding-block: 4.8vw;
+  }
+}

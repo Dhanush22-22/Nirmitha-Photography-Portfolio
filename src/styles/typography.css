@@ -1,0 +1,200 @@
+/*
+  Typography infrastructure.
+
+  All faces are the local files in src/assets/fonts/ (bundled by Vite — no external
+  font requests). Single-file families (everything except Montserrat and Raleway) are
+  declared over the full weight range so that whatever font-weight a rule already asks
+  for renders the real supplied file instead of a browser-synthesised faux bold.
+*/
+
+@font-face {
+  font-family: "TT Ricordi Nobili";
+  src: url("../assets/fonts/TT Ricordi Trial Nobili.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Burgues Script";
+  src: url("../assets/fonts/Burgues-Script.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "New Icon Serif";
+  src: url("../assets/fonts/New-Icon-Serif.otf") format("opentype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Ovo";
+  src: url("../assets/fonts/Ovo-Regular.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("../assets/fonts/PlayfairDisplay-Regular.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Ibarra Real Nova";
+  src: url("../assets/fonts/IbarraRealNova-Regular.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Libre Baskerville";
+  src: url("../assets/fonts/LibreBaskerville-Regular.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Times NR MT Italic";
+  src: url("../assets/fonts/Times NR MT Italic.otf") format("opentype");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: url("../assets/fonts/Montserrat-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Raleway";
+  src: url("../assets/fonts/Raleway-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Raleway";
+  src: url("../assets/fonts/Raleway-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Raleway";
+  src: url("../assets/fonts/Raleway-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Raleway";
+  src: url("../assets/fonts/Raleway-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Raleway";
+  src: url("../assets/fonts/Raleway-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Role-based font stacks — every section reads from these. */
+  --font-display: "TT Ricordi Nobili", "Archivo", "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-script: "Burgues Script", "Segoe Script", "Brush Script MT", cursive;
+  --font-tag: "New Icon Serif", Georgia, "Times New Roman", serif;
+
+  --font-body: "Montserrat", "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-serif-alt: "Ibarra Real Nova", Georgia, serif;
+  --font-classic: "Libre Baskerville", Georgia, serif;
+  --font-quote: "Ovo", Georgia, serif;
+  --font-label: "Raleway", "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-italic-classic: "Times NR MT Italic", "Times New Roman", Georgia, serif;
+
+  /* Fluid type scale — clamps keep the original hierarchy across 390px -> 1920px */
+  --fs-hero-headline: clamp(2.75rem, 3.2vw + 2rem, 7.5rem);
+  --fs-section-headline: clamp(2.25rem, 2.6vw + 1.5rem, 5rem);
+  --fs-subheadline: clamp(1.5rem, 1.4vw + 1rem, 2.75rem);
+  --fs-body-lg: clamp(1rem, 0.4vw + 0.9rem, 1.35rem);
+  --fs-body: clamp(0.9rem, 0.25vw + 0.85rem, 1.05rem);
+  --fs-label: clamp(0.7rem, 0.15vw + 0.65rem, 0.85rem);
+  --fs-micro: clamp(0.6rem, 0.1vw + 0.58rem, 0.7rem);
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+blockquote {
+  font-family: var(--font-quote);
+  font-style: normal;
+  margin: 0;
+}

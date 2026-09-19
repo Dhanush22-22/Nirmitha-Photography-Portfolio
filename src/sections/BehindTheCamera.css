@@ -1,0 +1,151 @@
+.behind-camera {
+  position: relative;
+  min-height: 100svh;
+  background: radial-gradient(120% 100% at 85% 0%, #232323 0%, #000 60%);
+}
+
+.behind-camera-grid {
+  display: grid;
+  grid-template-columns: minmax(240px, 34%) 1fr;
+  min-height: 100svh;
+}
+
+.behind-camera-media {
+  overflow: hidden;
+}
+
+.behind-camera-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.behind-camera-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%;
+  padding: var(--space-2xl) var(--gutter) var(--space-lg);
+}
+
+.behind-camera-copy-inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.behind-camera-heading {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-display);
+  font-size: var(--fs-section-headline);
+  color: var(--color-white);
+  letter-spacing: -0.02em;
+  line-height: 0.96;
+  margin: 0 0 var(--space-sm);
+}
+
+.behind-camera-paragraph {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: var(--fs-body);
+  line-height: 1.75;
+  color: var(--color-white);
+  text-align: justify;
+  max-width: 42rem;
+  margin: 0;
+}
+
+.behind-camera-quote {
+  font-family: var(--font-quote);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.6vw + 0.5rem, 4.5rem);
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--color-white);
+  margin: var(--space-xl) 0 0;
+  max-width: 100%;
+}
+
+@media (max-width: 900px) {
+  .behind-camera-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .behind-camera-media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .behind-camera-copy {
+    padding-block: var(--space-lg) var(--space-xl);
+  }
+
+  .behind-camera-paragraph {
+    text-align: left;
+  }
+
+  .behind-camera-quote {
+    font-size: clamp(1.75rem, 6vw + 0.5rem, 3rem);
+  }
+}
+
+/* PDF page 2 sizes (1440pt-wide page -> pt / 14.4 = vw): heading 88pt,
+   paragraph 21pt over a 730pt measure, quote 42pt Ovo. */
+@media (min-width: 901px) {
+  .behind-camera-heading {
+    font-size: 6.11vw;
+  }
+
+  .behind-camera-paragraph {
+    font-size: 1.458vw;
+    max-width: 50.5vw;
+  }
+
+  .behind-camera-quote {
+    font-size: 2.917vw;
+    font-weight: 400;
+  }
+}
+
+/* PDF: TT Ricordi Nobili tracks at about -0.12em (measured from the PDF glyph advances) and stacks on a 1.0 line advance. */
+@media (min-width: 901px) {
+  .behind-camera-heading {
+    letter-spacing: -0.12em;
+    line-height: 1;
+  }
+}
+
+/* PDF page 2: paragraph lines advance 29.3pt on 21pt type. */
+@media (min-width: 901px) {
+  .behind-camera-paragraph {
+    line-height: 1.395;
+  }
+}
+
+/* PDF page 2: the 42pt Ovo quote is ONE line (957pt wide, from the image's right edge to the page edge). The PDF tracks it tight with wide word gaps (~-0.08em letter-spacing, ~+0.26em word-spacing, fitted to its 957pt width within the 940pt the column leaves), and it runs through the copy column's side padding. */
+@media (min-width: 901px) {
+  .behind-camera-quote {
+    white-space: nowrap;
+    margin-inline: calc(-1 * var(--gutter));
+    letter-spacing: -0.08em;
+    word-spacing: 0.26em;
+  }
+}
+/* Slide 2 vertical rhythm from the PDF (pt / 14.4 = vw): 29pt above the heading, 5pt heading-to-paragraph, one line (29pt) between paragraphs, 24pt above the quote, 35pt below it. Together with the PDF-sized type this brings the slide back to one screen. */
+@media (min-width: 901px) {
+  .behind-camera-copy {
+    padding: 2.04vw var(--gutter) 2.46vw;
+  }
+
+  .behind-camera-copy-inner {
+    gap: 2.035vw;
+  }
+
+  .behind-camera-heading {
+    margin-bottom: -1.66vw;
+  }
+
+  .behind-camera-quote {
+    margin-top: 1.68vw;
+  }
+}

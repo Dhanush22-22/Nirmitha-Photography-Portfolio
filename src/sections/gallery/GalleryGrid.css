@@ -1,0 +1,109 @@
+.gallery-grid {
+  position: relative;
+  background: var(--color-offwhite);
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+}
+
+.gallery-grid-vertical {
+  flex: 0 0 clamp(3rem, 7vw, 8rem);
+  padding-left: var(--gutter);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw + 1rem, 5.5rem);
+  letter-spacing: -0.02em;
+  color: var(--color-black);
+  text-align: center;
+}
+
+.gallery-grid-track {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2vw, 2rem);
+  flex: 1;
+  height: 78svh;
+  margin-left: clamp(3rem, 18vw, 22rem);
+  padding-right: var(--gutter);
+}
+
+.gallery-grid-item {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.gallery-grid-item img {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  object-fit: cover;
+  transition: transform var(--duration-slow) var(--ease-editorial);
+}
+
+.gallery-grid-item:hover img {
+  transform: scale(1.03);
+}
+
+.gallery-grid-item-1 {
+  flex: 648 1 0;
+}
+
+.gallery-grid-item-2 {
+  flex: 555 1 0;
+}
+
+@media (max-width: 767px) {
+  .gallery-grid {
+    display: block;
+    padding: var(--space-2xl) 0;
+    min-height: 0;
+  }
+
+  .gallery-grid-vertical {
+    display: block;
+    writing-mode: horizontal-tb;
+    transform: none;
+    text-align: left;
+    padding-inline: var(--gutter);
+    margin-bottom: var(--space-lg);
+    font-size: clamp(2.5rem, 12vw, 4rem);
+  }
+
+  .gallery-grid-track {
+    height: auto;
+    gap: var(--space-md);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-inline: var(--gutter);
+    padding-bottom: var(--space-sm);
+    padding-right: var(--gutter);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .gallery-grid-item {
+    flex: 0 0 82vw;
+    height: 60vh;
+    scroll-snap-align: start;
+  }
+
+  .gallery-grid-item img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+/* PDF page 6: "GALLERY" 117.8pt (pt / 14.4 = vw). */
+@media (min-width: 901px) {
+  .gallery-grid-vertical {
+    font-size: 8.18vw;
+  }
+}
+
+/* PDF: TT Ricordi Nobili tracks at about -0.12em (measured from the PDF glyph advances). */
+@media (min-width: 901px) {
+  .gallery-grid-vertical {
+    letter-spacing: -0.12em;
+  }
+}
