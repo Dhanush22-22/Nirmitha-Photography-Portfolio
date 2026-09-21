@@ -17,7 +17,7 @@ export default function TechnovanzaFabulla() {
   return (
     <div ref={rootRef} className="tv-fab">
       <div className="tv-fab-media tv-fab-media-left" data-reveal-media>
-        <ResponsiveImage {...data.images.technovanza} sizes="(max-width: 900px) 100vw, 26vw" />
+        <ResponsiveImage watermark={false} {...data.images.technovanza} sizes="(max-width: 900px) 100vw, 26vw" />
       </div>
 
       <div className="tv-fab-info">
@@ -53,7 +53,7 @@ export default function TechnovanzaFabulla() {
       </div>
 
       <div className="tv-fab-media tv-fab-media-right" data-reveal-media>
-        <ResponsiveImage {...data.images.fabulla} sizes="(max-width: 900px) 100vw, 27vw" />
+        <ResponsiveImage watermark={false} {...data.images.fabulla} sizes="(max-width: 900px) 100vw, 27vw" />
       </div>
     </div>
   );

@@ -18,10 +18,10 @@ export default function ElysianShowcase() {
     <div ref={rootRef} className="elysian">
       <div className="elysian-frame">
         <div className="elysian-grid-1" data-reveal-media>
-          <ResponsiveImage {...data.grids[0]} sizes="(max-width: 767px) 46vw, 21vw" />
+          <ResponsiveImage watermark={false} {...data.grids[0]} sizes="(max-width: 767px) 46vw, 21vw" />
         </div>
         <div className="elysian-grid-2" data-reveal-media>
-          <ResponsiveImage {...data.grids[1]} sizes="(max-width: 767px) 46vw, 21vw" />
+          <ResponsiveImage watermark={false} {...data.grids[1]} sizes="(max-width: 767px) 46vw, 21vw" />
         </div>
 
         <div className="elysian-info">
@@ -37,10 +37,10 @@ export default function ElysianShowcase() {
         </div>
 
         <div className="elysian-reel-1" data-reveal-media>
-          <ResponsiveImage {...data.reels[0]} sizes="(max-width: 767px) 46vw, 20vw" />
+          <ResponsiveImage watermark={false} {...data.reels[0]} sizes="(max-width: 767px) 46vw, 20vw" />
         </div>
         <div className="elysian-reel-2" data-reveal-media>
-          <ResponsiveImage {...data.reels[1]} sizes="(max-width: 767px) 46vw, 20vw" />
+          <ResponsiveImage watermark={false} {...data.reels[1]} sizes="(max-width: 767px) 46vw, 20vw" />
         </div>
 
         <p className="elysian-caption" data-reveal>

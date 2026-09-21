@@ -40,6 +40,7 @@ export default function WhatIDo() {
           height={1080}
           alt="Close-up of a vintage camera's aperture and focus rings"
           sizes="(max-width: 900px) 100vw, 50vw"
+          watermark={false}
         />
       </div>
 

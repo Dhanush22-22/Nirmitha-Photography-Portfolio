@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import Watermark from "./Watermark";
 import PlayIcon from "./icons/PlayIcon";
 import PauseIcon from "./icons/PauseIcon";
 import SpeakerOnIcon from "./icons/SpeakerOnIcon";
@@ -123,6 +124,8 @@ export default function VideoPlayer({ src, poster, alt, className = "" }) {
         preload="metadata"
         aria-label={alt}
       />
+
+      <Watermark name={poster.name} />
 
       {!started && (
         <button type="button" className="video-player-cover" onClick={togglePlay} aria-label="Play video">

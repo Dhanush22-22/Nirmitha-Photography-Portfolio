@@ -1,0 +1,137 @@
+/*
+  Photographer's signature overlay. An absolutely positioned <span> inside the media
+  container, so it moves with the image/video and never affects layout. Its position
+  comes from a per-image preset (data-pos, see watermarkPositions.js). Any parent holding
+  a watermark becomes its positioning context through a zero-specificity :where() rule,
+  which can never override an existing absolute/fixed/sticky position.
+  Browsers without :has() simply don't show it.
+*/
+.media-watermark {
+  display: none;
+}
+
+@supports selector(:has(a)) {
+  :where(:has(> .media-watermark)) {
+    position: relative;
+  }
+
+  /*
+    A few photo containers are switched to `position: static` at smaller screen sizes by
+    their own section CSS (which also makes their desktop left/top insets inert). Without
+    a positioned parent the signature would anchor to the section instead of its
+    photograph, so they become `relative` at exactly those breakpoints, with insets reset
+    to auto so the layout is identical to `static`.
+  */
+  @media (max-width: 900px) {
+    .inspiration-media.inspiration-media,
+    .food-bev-soup.food-bev-soup,
+    .food-bev-drink.food-bev-drink {
+      position: relative;
+      inset: auto;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .spaces-item.spaces-item {
+      position: relative;
+      inset: auto;
+    }
+  }
+
+  .media-watermark {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    margin-right: -0.32em;
+    font-family: var(--font-label);
+    font-weight: 300;
+    font-size: clamp(6px, calc(var(--wm-w, 30) * 0.023vw), 11px);
+    line-height: 1;
+    letter-spacing: 0.32em;
+    white-space: nowrap;
+    color: rgba(255, 252, 246, 0.8);
+    text-shadow: 0 0 0.5em rgba(0, 0, 0, 0.55), 0 0 2px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(0, 0, 0, 0.55);
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /*
+    Position presets, all at a 3% inset from the photograph's own edges. --wm-cap is the
+    height of any caption sitting above the photo inside the same container (Color
+    Grading's BEFORE/AFTER), so the offsets are measured from the photo, not the figure.
+  */
+  .media-watermark[data-pos^="t"] {
+    top: calc(var(--wm-cap, 0px) * 0.97 + 3%);
+  }
+
+  .media-watermark[data-pos^="b"] {
+    bottom: 3%;
+  }
+
+  .media-watermark[data-pos^="m"] {
+    top: calc(var(--wm-cap, 0px) * (1 - var(--wm-mid, 0.5)) + var(--wm-mid, 0.5) * 100%);
+    transform: translateY(-50%);
+  }
+
+  .media-watermark[data-pos$="r"] {
+    right: 3%;
+  }
+
+  .media-watermark[data-pos$="l"] {
+    left: 3%;
+    margin-right: 0;
+  }
+
+  .media-watermark[data-pos$="c"] {
+    left: 50%;
+    margin-right: 0;
+    transform: translateX(-50%);
+  }
+
+  /* Free placement ("L62T78" in watermarkPositions.js): left / top as a fraction of the photo. */
+  .media-watermark[data-pos="xy"] {
+    left: calc(var(--wm-l) * 100%);
+    top: calc(var(--wm-cap, 0px) * (1 - var(--wm-f)) + var(--wm-f) * 100%);
+    margin-right: 0;
+  }
+
+  .media-watermark[data-shadow="strong"] {
+    text-shadow: 0 0 0.5em rgba(0, 0, 0, 0.7), 0 0 2px rgba(0, 0, 0, 0.7), 0 1px 1px rgba(0, 0, 0, 0.7);
+  }
+
+  .color-grade-item {
+    --wm-cap: calc(1.5 * var(--cg-cap-fs) + var(--space-sm));
+    --cg-cap-fs: clamp(1.1rem, 1.6vw + 0.6rem, 2rem);
+  }
+
+  /* --cg-cap-fs mirrors the caption's font-size rules in ColorGrading.css. */
+  @media (min-width: 901px) {
+    .color-grade-item {
+      --cg-cap-fs: 2.917vw;
+    }
+
+    .color-grade[data-grade="arrival-ambience"] .color-grade-item {
+      --cg-cap-fs: 1.944vw;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .media-watermark {
+      font-size: clamp(6px, calc(var(--wm-w-sm, var(--wm-w, 30)) * 0.023vw), 10px);
+      letter-spacing: 0.28em;
+      margin-right: -0.28em;
+    }
+
+    .media-watermark[data-pos$="l"],
+    .media-watermark[data-pos$="c"] {
+      margin-right: 0;
+    }
+  }
+
+  /* The three small gallery thumbnails: keep the signature proportionate. */
+  :is(.gallery-detail-small-1, .gallery-detail-small-2, .gallery-detail-small-3) > .media-watermark {
+    font-size: 6px;
+    letter-spacing: 0.22em;
+  }
+}
