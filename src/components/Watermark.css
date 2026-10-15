@@ -1,9 +1,8 @@
 /*
-  Photographer's signature overlay. An absolutely positioned <span> inside the media
-  container, so it moves with the image/video and never affects layout. Its position
-  comes from a per-image preset (data-pos, see watermarkPositions.js). Any parent holding
-  a watermark becomes its positioning context through a zero-specificity :where() rule,
-  which can never override an existing absolute/fixed/sticky position.
+  Centred, semi-transparent photographer's mark. An absolutely positioned <span> inside
+  the media container, so it follows the image/video and never affects layout. Any
+  parent holding a watermark becomes its positioning context through a zero-specificity
+  :where() rule, which can never override an existing absolute/fixed/sticky position.
   Browsers without :has() simply don't show it.
 */
 .media-watermark {
@@ -15,13 +14,7 @@
     position: relative;
   }
 
-  /*
-    A few photo containers are switched to `position: static` at smaller screen sizes by
-    their own section CSS (which also makes their desktop left/top insets inert). Without
-    a positioned parent the signature would anchor to the section instead of its
-    photograph, so they become `relative` at exactly those breakpoints, with insets reset
-    to auto so the layout is identical to `static`.
-  */
+  /* Containers that sections switch to `position: static` at smaller sizes. */
   @media (max-width: 900px) {
     .inspiration-media.inspiration-media,
     .food-bev-soup.food-bev-soup,
@@ -42,62 +35,43 @@
     display: block;
     position: absolute;
     z-index: 1;
-    margin-right: -0.32em;
+    left: 50%;
+    /* --wm-cap: height of a caption above the photo in the same container (Color Grading). */
+    top: calc(50% + var(--wm-cap, 0px) / 2);
+    transform: translate(-50%, -50%);
     font-family: var(--font-label);
-    font-weight: 300;
-    font-size: clamp(6px, calc(var(--wm-w, 30) * 0.023vw), 11px);
+    font-weight: 600;
+    font-size: clamp(11px, calc(var(--wm-w, 30) * 0.058vw), 28px);
     line-height: 1;
-    letter-spacing: 0.32em;
+    letter-spacing: 0.3em;
+    text-indent: 0.3em;
     white-space: nowrap;
-    color: rgba(255, 252, 246, 0.8);
-    text-shadow: 0 0 0.5em rgba(0, 0, 0, 0.55), 0 0 2px rgba(0, 0, 0, 0.5), 0 1px 1px rgba(0, 0, 0, 0.55);
+    color: rgba(255, 252, 246, var(--wm-a, 0.4));
     pointer-events: none;
     user-select: none;
     -webkit-user-select: none;
   }
 
-  /*
-    Position presets, all at a 3% inset from the photograph's own edges. --wm-cap is the
-    height of any caption sitting above the photo inside the same container (Color
-    Grading's BEFORE/AFTER), so the offsets are measured from the photo, not the figure.
-  */
-  .media-watermark[data-pos^="t"] {
-    top: calc(var(--wm-cap, 0px) * 0.97 + 3%);
+  .media-watermark[data-tone="dark"] {
+    color: rgba(18, 14, 10, var(--wm-a, 0.4));
   }
 
-  .media-watermark[data-pos^="b"] {
-    bottom: 3%;
+  .media-watermark[data-shadow] {
+    text-shadow: 0 0 0.5em rgba(0, 0, 0, 0.4);
   }
 
-  .media-watermark[data-pos^="m"] {
-    top: calc(var(--wm-cap, 0px) * (1 - var(--wm-mid, 0.5)) + var(--wm-mid, 0.5) * 100%);
-    transform: translateY(-50%);
+  .media-watermark[data-shadow="tight"] {
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.6), 0 0 0.45em rgba(0, 0, 0, 0.35);
   }
 
-  .media-watermark[data-pos$="r"] {
-    right: 3%;
+  .media-watermark[data-shadow][data-tone="dark"] {
+    text-shadow: 0 0 0.5em rgba(255, 252, 246, 0.5);
   }
 
-  .media-watermark[data-pos$="l"] {
-    left: 3%;
-    margin-right: 0;
-  }
-
-  .media-watermark[data-pos$="c"] {
-    left: 50%;
-    margin-right: 0;
-    transform: translateX(-50%);
-  }
-
-  /* Free placement ("L62T78" in watermarkPositions.js): left / top as a fraction of the photo. */
-  .media-watermark[data-pos="xy"] {
-    left: calc(var(--wm-l) * 100%);
-    top: calc(var(--wm-cap, 0px) * (1 - var(--wm-f)) + var(--wm-f) * 100%);
-    margin-right: 0;
-  }
-
-  .media-watermark[data-shadow="strong"] {
-    text-shadow: 0 0 0.5em rgba(0, 0, 0, 0.7), 0 0 2px rgba(0, 0, 0, 0.7), 0 1px 1px rgba(0, 0, 0, 0.7);
+  @media (max-width: 900px) {
+    .media-watermark {
+      font-size: clamp(10px, calc(var(--wm-w-sm, var(--wm-w, 30)) * 0.058vw), 24px);
+    }
   }
 
   .color-grade-item {
@@ -116,22 +90,52 @@
     }
   }
 
-  @media (max-width: 900px) {
-    .media-watermark {
-      font-size: clamp(6px, calc(var(--wm-w-sm, var(--wm-w, 30)) * 0.023vw), 10px);
-      letter-spacing: 0.28em;
-      margin-right: -0.28em;
-    }
-
-    .media-watermark[data-pos$="l"],
-    .media-watermark[data-pos$="c"] {
-      margin-right: 0;
-    }
+  /*
+    Color Grading: the figure holds the caption above the photo and can be shorter than
+    caption + photo (max-height), so centre from the photo's own top edge: the photo is
+    always width x 740/555 tall, and percent margins resolve against the width.
+  */
+  .color-grade-item > .media-watermark {
+    top: var(--wm-cap);
+    margin-top: calc(100% * 740 / 555 / 2);
   }
 
-  /* The three small gallery thumbnails: keep the signature proportionate. */
+  /* The three small gallery thumbnails. */
   :is(.gallery-detail-small-1, .gallery-detail-small-2, .gallery-detail-small-3) > .media-watermark {
-    font-size: 6px;
-    letter-spacing: 0.22em;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-indent: 0.2em;
+  }
+}
+
+/* Closing: the photo is right-anchored at height 100% and its own aspect ratio (629 x 865),
+   inside a container that can be narrower; centre on the visible part of the photo. */
+@supports selector(:has(a)) {
+  @media (min-width: 901px) {
+    .closing-media > .media-watermark {
+      left: auto;
+      right: calc(min(100svh * 629 / 865, 100%) / 2);
+      transform: translate(50%, -50%);
+    }
+  }
+}
+
+/* Spaces photos are ~26-30vw wide at these sizes (the `sizes` hint says 80vw), so size to that. */
+@supports selector(:has(a)) {
+  @media (max-width: 900px) {
+    .spaces-item > .media-watermark {
+      font-size: clamp(6px, 1.7vw, 13px);
+      letter-spacing: 0.2em;
+      text-indent: 0.2em;
+    }
+  }
+}
+
+/* Gallery pair at tablet widths: photos are ~230-260px wide, not what the sizes hint implies. */
+@supports selector(:has(a)) {
+  @media (min-width: 768px) and (max-width: 900px) {
+    .gallery-grid-item > .media-watermark {
+      font-size: clamp(10px, 1.7vw, 14px);
+    }
   }
 }
