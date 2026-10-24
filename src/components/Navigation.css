@@ -27,6 +27,19 @@
   justify-content: center;
 }
 
+@media (max-width: 900px) {
+  /* 44px touch target; the visible 36px button and its bars stay exactly where they are. */
+  .nav-toggle {
+    position: relative;
+  }
+
+  .nav-toggle::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+  }
+}
+
 .nav-toggle-bar {
   display: block;
   width: 22px;

@@ -28,24 +28,33 @@ export function useScrollReveal(
   useEffect(() => {
     if (!ref.current || reducedMotion) return;
 
-    const ctx = gsap.context(() => {
-      const targets = ref.current.querySelectorAll(selector);
-      if (!targets.length) return;
+    // On phones/tablets a reveal's scale(1.05-1.06) start pose makes the media box wider than the
+    // screen until it plays (the page scrolls/pans sideways), so there the reveal fades and slides
+    // only. matchMedia re-evaluates on resize/rotation and reverts cleanly; desktop is unchanged.
+    const mm = gsap.matchMedia();
+    mm.add(
+      { compact: "(max-width: 900px)", wide: "(min-width: 901px)" },
+      (context) => {
+        const targets = ref.current.querySelectorAll(selector);
+        if (!targets.length) return;
 
-      gsap.from(targets, {
-        ...from,
-        duration,
-        stagger,
-        ease,
-        scrollTrigger: {
-          trigger: ref.current,
-          start,
-          once,
-        },
-      });
-    }, ref);
+        const withoutScale = { ...from };
+        delete withoutScale.scale;
+        gsap.from(targets, {
+          ...(context.conditions.compact ? withoutScale : from),
+          duration,
+          stagger,
+          ease,
+          scrollTrigger: {
+            trigger: ref.current,
+            start,
+            once,
+          },
+        });
+      }
+    );
 
-    return () => ctx.revert();
+    return () => mm.revert();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reducedMotion]);
 }

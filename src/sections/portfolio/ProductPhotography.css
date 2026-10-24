@@ -86,7 +86,7 @@
 
 @media (max-width: 900px) {
   .product-photo {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .product-photo-media {
@@ -96,6 +96,14 @@
 
   .product-photo-copy {
     padding-block: var(--space-xl);
+  }
+
+  /*
+    "PHOTOGRAPHY" cannot wrap and is ~7.9em wide, so at the 2.75rem minimum it was 346px inside a
+    320px box on a 360px phone, widening the whole column. Cap the size so the word always fits.
+  */
+  .product-photo-heading {
+    font-size: min(var(--fs-hero-headline), calc((100vw - 2 * var(--gutter)) / 8.2));
   }
 
   .product-photo-body {

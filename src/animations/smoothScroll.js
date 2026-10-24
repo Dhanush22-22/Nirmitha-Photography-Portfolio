@@ -10,10 +10,25 @@ gsap.registerPlugin(ScrollTrigger);
  * Returns a teardown function.
  */
 export function initSmoothScroll({ reducedMotion = false } = {}) {
+  // Reveal triggers are measured on mount, before web fonts and late images settle section
+  // heights, and rotating a phone changes every height. Re-measure at those moments.
+  let cancelled = false;
+  const refresh = () => {
+    if (!cancelled) ScrollTrigger.refresh();
+  };
+  document.fonts?.ready.then(refresh);
+  window.addEventListener("load", refresh, { once: true });
+  window.addEventListener("orientationchange", refresh);
+  const stopRefreshing = () => {
+    cancelled = true;
+    window.removeEventListener("load", refresh);
+    window.removeEventListener("orientationchange", refresh);
+  };
+
   if (reducedMotion) {
     // Native scroll only — ScrollTrigger still works against the real scrollbar.
     ScrollTrigger.refresh();
-    return () => {};
+    return stopRefreshing;
   }
 
   const lenis = new Lenis({
@@ -31,6 +46,7 @@ export function initSmoothScroll({ reducedMotion = false } = {}) {
   gsap.ticker.lagSmoothing(0);
 
   return () => {
+    stopRefreshing();
     gsap.ticker.remove(tickerCallback);
     lenis.destroy();
   };

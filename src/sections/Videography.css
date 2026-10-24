@@ -82,15 +82,24 @@
 
 @media (max-width: 900px) {
   .videography {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
+  /* Same portrait proportion as the desktop design (the clip is 9:16), centred, never wider than 26rem. */
   .videography-media {
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 580 / 1025;
+    width: min(100% - 2 * var(--gutter), 26rem);
+    max-height: none;
+    margin-inline: auto;
   }
 
   .videography-copy {
     padding-block: var(--space-xl);
+  }
+
+  /* "VIDEOGRAPHY" cannot wrap (7.5em wide); cap the size so it always fits inside the gutters. */
+  .videography-heading {
+    font-size: min(var(--fs-hero-headline), calc((100vw - 2 * var(--gutter)) / 7.7));
   }
 
   .videography-arrow {

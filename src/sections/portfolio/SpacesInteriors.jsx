@@ -19,26 +19,28 @@ export default function SpacesInteriors() {
   return (
     <div ref={rootRef} className="spaces">
       <div className="spaces-frame">
-        <figure className="spaces-item spaces-item-1" data-reveal-media>
-          <ResponsiveImage {...first.image} sizes="(max-width: 767px) 80vw, 29vw" />
-        </figure>
-        <p className="spaces-tag spaces-tag-1" data-reveal>
-          {first.tag}
-        </p>
+        <div className="spaces-set">
+          <figure className="spaces-item spaces-item-1" data-reveal-media>
+            <ResponsiveImage {...first.image} sizes="(max-width: 767px) 80vw, 29vw" />
+          </figure>
+          <p className="spaces-tag spaces-tag-1" data-reveal>
+            {first.tag}
+          </p>
 
-        <figure className="spaces-item spaces-item-2" data-reveal-media>
-          <ResponsiveImage {...second.image} sizes="(max-width: 767px) 80vw, 32vw" />
-        </figure>
-        <p className="spaces-tag spaces-tag-2" data-reveal>
-          {second.tag}
-        </p>
+          <figure className="spaces-item spaces-item-2" data-reveal-media>
+            <ResponsiveImage {...second.image} sizes="(max-width: 767px) 80vw, 32vw" />
+          </figure>
+          <p className="spaces-tag spaces-tag-2" data-reveal>
+            {second.tag}
+          </p>
 
-        <figure className="spaces-item spaces-item-3" data-reveal-media>
-          <ResponsiveImage {...third.image} sizes="(max-width: 767px) 80vw, 29vw" />
-        </figure>
-        <p className="spaces-tag spaces-tag-3" data-reveal>
-          {third.tag}
-        </p>
+          <figure className="spaces-item spaces-item-3" data-reveal-media>
+            <ResponsiveImage {...third.image} sizes="(max-width: 767px) 80vw, 29vw" />
+          </figure>
+          <p className="spaces-tag spaces-tag-3" data-reveal>
+            {third.tag}
+          </p>
+        </div>
 
         <h2 className="spaces-heading" data-reveal>
           {data.heading.map((line) => (

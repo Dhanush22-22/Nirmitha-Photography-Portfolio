@@ -63,13 +63,15 @@
 
 @media (max-width: 900px) {
   .lens {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
+  /* The clip is portrait 9:16: show it uncropped (full width on phones, capped and centred on tablets). */
   .lens-media {
     max-height: none;
-    aspect-ratio: 3 / 4;
-    margin-left: 0;
+    aspect-ratio: 9 / 16;
+    width: min(100%, 28rem);
+    margin-inline: auto;
   }
 
   .lens-copy {

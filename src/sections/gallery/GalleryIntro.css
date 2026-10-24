@@ -47,7 +47,7 @@
 
 @media (max-width: 767px) {
   .gallery-intro {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: 45svh 55svh;
   }
 

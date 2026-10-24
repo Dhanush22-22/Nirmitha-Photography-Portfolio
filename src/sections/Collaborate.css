@@ -88,6 +88,11 @@
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-xl) var(--space-md);
   }
+
+  /* "COLLABORATE" cannot wrap (7.34em wide); cap the size so it always fits inside the gutters. */
+  .collaborate-heading-title {
+    font-size: min(clamp(3rem, 6vw + 1.5rem, 8rem), calc((100vw - 2 * var(--gutter)) / 7.5));
+  }
 }
 
 @media (max-width: 480px) {

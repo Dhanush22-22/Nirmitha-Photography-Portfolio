@@ -122,3 +122,23 @@
     display: none;
   }
 }
+
+/* Touch screens: 44px buttons and a taller (invisible) hit area around the 2px seek bar. */
+@media (max-width: 900px) {
+  .video-player-btn {
+    width: 44px;
+    height: 44px;
+  }
+
+  .video-player-controls {
+    gap: var(--space-2xs);
+    padding: var(--space-xs) var(--space-xs) var(--space-2xs);
+  }
+
+  .video-player-progress {
+    box-sizing: content-box;
+    padding-block: 21px;
+    background-clip: content-box;
+    touch-action: pan-y;
+  }
+}

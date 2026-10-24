@@ -24,7 +24,7 @@
     }
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 900px) {
     .spaces-item.spaces-item {
       position: relative;
       inset: auto;
@@ -116,26 +116,6 @@
       left: auto;
       right: calc(min(100svh * 629 / 865, 100%) / 2);
       transform: translate(50%, -50%);
-    }
-  }
-}
-
-/* Spaces photos are ~26-30vw wide at these sizes (the `sizes` hint says 80vw), so size to that. */
-@supports selector(:has(a)) {
-  @media (max-width: 900px) {
-    .spaces-item > .media-watermark {
-      font-size: clamp(6px, 1.7vw, 13px);
-      letter-spacing: 0.2em;
-      text-indent: 0.2em;
-    }
-  }
-}
-
-/* Gallery pair at tablet widths: photos are ~230-260px wide, not what the sizes hint implies. */
-@supports selector(:has(a)) {
-  @media (min-width: 768px) and (max-width: 900px) {
-    .gallery-grid-item > .media-watermark {
-      font-size: clamp(10px, 1.7vw, 14px);
     }
   }
 }

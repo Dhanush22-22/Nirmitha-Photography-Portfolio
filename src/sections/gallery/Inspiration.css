@@ -90,7 +90,8 @@
 
 @media (max-width: 900px) {
   .inspiration {
-    padding: var(--space-2xl) var(--gutter) var(--space-xl);
+    min-height: 0;
+    padding: var(--space-xl) var(--gutter);
   }
 
   .inspiration-frame {

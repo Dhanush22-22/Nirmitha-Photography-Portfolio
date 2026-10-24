@@ -148,8 +148,17 @@
   }
 
   .experience-columns {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-2xl);
+  }
+
+  .experience-body,
+  .experience-bullets li {
+    font-size: 0.78rem;
+  }
+
+  .experience-body {
+    line-height: 1.65;
   }
 }
 

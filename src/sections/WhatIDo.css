@@ -200,4 +200,8 @@
   .what-i-do-panel-inner {
     padding-block: var(--space-lg);
   }
+
+  .what-i-do-vertical-quote {
+    font-size: 0.72rem;
+  }
 }

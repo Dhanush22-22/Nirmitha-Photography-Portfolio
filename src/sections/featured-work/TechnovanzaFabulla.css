@@ -67,7 +67,7 @@
 
 @media (max-width: 900px) {
   .tv-fab {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     min-height: 0;
   }
 
