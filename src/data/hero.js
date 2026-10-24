@@ -5,7 +5,7 @@ export const hero = {
   eyebrow: "PHOTOGRAPHER / VIDEOGRAPHER / VISUAL STORYTELLER",
   name: "NIRMITHA N",
   role: ["PHOTOGRAPHER", "& VIDEOGRAPHER"],
-  quote: "STORIES IN STILLNES",
+  quote: "STORIES IN STILLNESS",
   body: "Photography has become an extension of how I see and experience the world turning fleeting moments, emotions and details into stories that live on.",
   // Decorative camera-UI chrome baked into the original slide composition — kept as
   // authentic, non-essential flourishes and hidden from assistive tech.
