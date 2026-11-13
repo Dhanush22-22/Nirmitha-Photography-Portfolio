@@ -40,7 +40,6 @@ export const closing = {
     alt: "Gilded ginkgo-leaf wall sconces above a round clock table",
   },
   contacts: [
-    { type: "phone", label: "Phone", value: "7483481071", href: "tel:7483481071" },
     { type: "mail", label: "Mail", value: "nnirmitha22@gmail.com", href: "mailto:nnirmitha22@gmail.com" },
   ],
 };
